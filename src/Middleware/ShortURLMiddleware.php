@@ -4,8 +4,8 @@ namespace AshAllenDesign\ShortURL\Middleware;
 
 use AshAllenDesign\ShortURL\Models\ShortURL;
 use Closure;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShortURLMiddleware
 {
@@ -14,9 +14,9 @@ class ShortURLMiddleware
      *
      * @param  Request  $request
      * @param  Closure  $next
-     * @return RedirectResponse
+     * @return Response
      */
-    public function handle(Request $request, Closure $next): RedirectResponse
+    public function handle(Request $request, Closure $next): Response
     {
         $shortURL = ShortURL::where('url_key', $request->route('shortURLKey'))->firstOrFail();
         $request->attributes->add(['shortURL' => $shortURL]);
